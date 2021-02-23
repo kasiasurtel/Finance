@@ -7,7 +7,7 @@ import com.ks.finance.data.AccountsDao
 
 class AccountEditViewModelFactory(
     private val dataSource: AccountsDao,
-    private val accountId: Long
+    private val accountId: String?
         ) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")

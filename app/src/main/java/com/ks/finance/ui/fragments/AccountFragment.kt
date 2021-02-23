@@ -35,7 +35,7 @@ class AccountFragment : Fragment() {
         binding.buttonEdit.setOnClickListener {
             this.findNavController().navigate(
                 AccountFragmentDirections
-                    .actionAccountFragmentToAccountEditFragment(arguments.accountId)
+                    .actionAccountFragmentToAccountEditFragment(arguments.accountId.toString())
             )
         }
 

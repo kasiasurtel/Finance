@@ -53,6 +53,12 @@ class AccountsFragment : Fragment() {
             it?.let { adapter.submitList(it) }
         })
 
+        binding.addAccountButton.setOnClickListener {
+            this.findNavController().navigate(
+                AccountsFragmentDirections.actionNavAccountsToAccountEditFragment(null)
+            )
+        }
+
         return binding.root
     }
 }

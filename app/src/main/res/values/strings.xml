@@ -19,6 +19,7 @@
 
     <string name="button_add_new_account">Add new account</string>
     <string name="button_delete">Delete</string>
+    <string name="button_save">Save</string>
     <string name="button_edit">Edit</string>
 
     <string name="account_name_label">Account name</string>

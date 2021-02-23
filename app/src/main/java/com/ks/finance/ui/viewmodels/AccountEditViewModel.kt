@@ -1,5 +1,6 @@
 package com.ks.finance.ui.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,21 +10,27 @@ import com.ks.finance.data.AccountsDao
 import kotlinx.coroutines.launch
 
 class AccountEditViewModel(
-    val database: AccountsDao,
-    accountId: Long
+    private val database: AccountsDao,
+    accountId: String?
 ) : ViewModel() {
 
     private var _account = MutableLiveData<Account>().apply {
         viewModelScope.launch {
-            value = database.get(accountId)
+            accountId?.let { value = database.get(accountId.toLong()) }
         }
     }
     var account: LiveData<Account> = _account
 
-    fun deleteAccount() {               // TODO: add confirmation before delete
+    fun onDelete() {               // TODO: add confirmation before delete
         viewModelScope.launch {
             _account.value?.let { database.delete(it) }
             _account.value = null
+        }
+    }
+
+    fun onSave() {              // TODO
+        viewModelScope.launch {
+            _account.value?.let { database.update(it) } ?: Log.d("AccountEditViewModel", "no account!!!!!!!")
         }
     }
 }

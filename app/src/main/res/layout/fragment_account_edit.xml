@@ -7,6 +7,7 @@
         <variable
             name="viewModel"
             type="com.ks.finance.ui.viewmodels.AccountEditViewModel" />
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,14 +56,25 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <Button
-            android:id="@+id/button_delete"
-            android:onClick="@{() -> viewModel.deleteAccount()}"
-            android:text="@string/button_delete"
+            android:id="@+id/button_save"
+            android:onClick="@{() -> viewModel.onSave()}"
+            android:text="@string/button_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <Button
+            android:id="@+id/button_delete"
+            android:onClick="@{() -> viewModel.onDelete()}"
+            android:visibility="@{viewModel.account == null ? View.GONE : View.VISIBLE}"
+            android:text="@string/button_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/button_save"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -30,8 +30,9 @@ class AccountEditFragment : Fragment() {
         val arguments = AccountEditFragmentArgs.fromBundle(requireArguments())
         val dataSource = FinanceDatabase.getInstance(application).accountsDao
         val viewModelFactory = AccountEditViewModelFactory(dataSource, arguments.accountId)
-        val viewModel = ViewModelProvider(
-            this, viewModelFactory).get(AccountEditViewModel::class.java)
+
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(AccountEditViewModel::class.java)
+
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
