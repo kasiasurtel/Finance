@@ -32,6 +32,12 @@ class AccountFragment : Fragment() {
         binding.accountViewModel = accountViewModel
         binding.lifecycleOwner = this
 
+        accountViewModel.account.observe(viewLifecycleOwner, {
+            if(it == null) {
+                this.findNavController().navigateUp()
+            }
+        })
+
         binding.buttonEdit.setOnClickListener {
             this.findNavController().navigate(
                 AccountFragmentDirections

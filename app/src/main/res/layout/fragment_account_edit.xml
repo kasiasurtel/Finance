@@ -38,7 +38,7 @@
 
         <TextView
             android:id="@+id/currency_label"
-            android:text="@string/account_name_label"
+            android:text="@string/account_currency_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/list_item_margin"
@@ -55,9 +55,29 @@
             app:layout_constraintTop_toBottomOf="@id/currency_label"
             app:layout_constraintStart_toStartOf="parent"/>
 
+        <TextView
+            android:id="@+id/balance_label"
+            android:text="@string/account_balance_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/list_item_margin"
+            android:layout_marginTop="@dimen/list_item_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/currency_spinner"/>
+
+        <EditText
+            android:id="@+id/balance_edit"
+            android:text="@{String.valueOf(viewModel.account.balance)}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/list_item_margin"
+            android:layout_marginEnd="@dimen/list_item_margin"
+            app:layout_constraintTop_toBottomOf="@id/balance_label"
+            app:layout_constraintStart_toStartOf="parent"
+            android:inputType="number" />
+
         <Button
             android:id="@+id/button_save"
-            android:onClick="@{() -> viewModel.onSave()}"
             android:text="@string/button_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,7 +87,6 @@
 
         <Button
             android:id="@+id/button_delete"
-            android:onClick="@{() -> viewModel.onDelete()}"
             android:visibility="@{viewModel.account == null ? View.GONE : View.VISIBLE}"
             android:text="@string/button_delete"
             android:layout_width="match_parent"

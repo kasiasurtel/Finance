@@ -10,12 +10,12 @@ import kotlinx.coroutines.launch
 
 class AccountViewModel(
     val database: AccountsDao,
-    accountId: Long
+    accountId: String?
 ) : ViewModel() {
 
     private var _account = MutableLiveData<Account>().apply {
         viewModelScope.launch {
-            value = database.get(accountId)
+            value = accountId?.let { database.get(it.toLong()) }
         }
     }
     var account: LiveData<Account> = _account

@@ -44,7 +44,7 @@ class AccountsFragment : Fragment() {
 
         val adapter = AccountsAdapter(AccountListener { accountId ->
             this.findNavController().navigate(
-                AccountsFragmentDirections.actionNavAccountsToAccountFragment(accountId)
+                AccountsFragmentDirections.actionNavAccountsToAccountFragment(accountId.toString())
             )
         })
 

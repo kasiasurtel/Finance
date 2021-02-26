@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ks.finance.data.Account
 import com.ks.finance.data.AccountsDao
+import com.ks.finance.data.Currency
 import kotlinx.coroutines.launch
 
 class AccountEditViewModel(
@@ -21,16 +22,32 @@ class AccountEditViewModel(
     }
     var account: LiveData<Account> = _account
 
-    fun onDelete() {               // TODO: add confirmation before delete
+    var _leave = MutableLiveData<Boolean>().apply { value = false }
+    var leave: LiveData<Boolean> = _leave
+
+    fun onDelete() {
         viewModelScope.launch {
             _account.value?.let { database.delete(it) }
             _account.value = null
         }
+        _leave.value = true
     }
 
-    fun onSave() {              // TODO
+    fun onSave(name: String, currency: Currency, balance: Double) {
         viewModelScope.launch {
-            _account.value?.let { database.update(it) } ?: Log.d("AccountEditViewModel", "no account!!!!!!!")
+            if(_account.value != null) {
+                _account.value!!.name = name
+                _account.value!!.currency = currency
+                _account.value!!.balance = balance
+                database.update(_account.value!!)
+            } else {
+                val account = Account(name = name, currency = currency, balance = balance)
+                _account.value = account
+                database.insert(account)
+            }
         }
+        _leave.value = true
     }
+
+    fun doneNavigating() { _leave.value = false }
 }

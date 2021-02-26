@@ -30,7 +30,8 @@
         tools:layout="@layout/fragment_account" >
         <argument
             android:name="accountId"
-            app:argType="long" />
+            app:argType="string"
+            app:nullable="true"/>
         <action
             android:id="@+id/action_accountFragment_to_accountEditFragment"
             app:destination="@id/accountEditFragment" />
@@ -50,7 +51,9 @@
             app:destination="@id/nav_accounts" />
         <action
             android:id="@+id/action_accountEditFragment_to_accountFragment"
-            app:destination="@id/accountFragment" />
+            app:destination="@id/accountFragment"
+            app:popUpTo="@id/accountFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
