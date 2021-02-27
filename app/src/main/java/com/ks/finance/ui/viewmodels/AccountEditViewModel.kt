@@ -29,8 +29,8 @@ class AccountEditViewModel(
         viewModelScope.launch {
             _account.value?.let { database.delete(it) }
             _account.value = null
+            _leave.value = true
         }
-        _leave.value = true
     }
 
     fun onSave(name: String, currency: Currency, balance: Double) {
@@ -45,8 +45,8 @@ class AccountEditViewModel(
                 _account.value = account
                 database.insert(account)
             }
+            _leave.value = true
         }
-        _leave.value = true
     }
 
     fun doneNavigating() { _leave.value = false }

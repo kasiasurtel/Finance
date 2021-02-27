@@ -1,33 +1,50 @@
 package com.ks.finance.ui.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.ks.finance.R
 import com.ks.finance.data.Category
-import java.util.*
+import com.ks.finance.databinding.ListItemCategoryBinding
 
-class CategoriesAdapter (private val dataSet: List<Category>)
-    : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
+class CategoriesAdapter(private val clickListener: CategoryListener) : ListAdapter<Category,
+        CategoriesAdapter.ViewHolder>(CategoryDiffCallback()) {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name: TextView
+    inner class ViewHolder(private val binding: ListItemCategoryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        init {
-            name = view.findViewById(R.id.name)
+        fun bind(category: Category, clickListener: CategoryListener) {
+            binding.category = category
+            binding.clickListener = clickListener
+            binding.executePendingBindings()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_account, parent, false)
-        return ViewHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        return ViewHolder(ListItemCategoryBinding.inflate(inflater, parent, false))
+
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.name.text = dataSet[position].name.toUpperCase(Locale.ROOT)
+        val item = getItem(position)
+        holder.bind(item, clickListener)
+    }
+}
+
+class CategoryDiffCallback : DiffUtil.ItemCallback<Category>() {
+    override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    override fun getItemCount() = dataSet.size
+    override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
+        return oldItem == newItem
+    }
+}
+
+class CategoryListener(val clickListener: (categoryId: Long) -> Unit) {   //TODO: move it to listeners package (?)
+    fun onClick(category: Category) {
+        clickListener(category.id)
+    }
 }

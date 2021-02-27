@@ -13,17 +13,10 @@ import kotlinx.coroutines.launch
 
 class AccountsViewModel(
     val database: AccountsDao,
-    application: Application
+    val application: Application
 ) : ViewModel() {
 
     val accounts = database.getAllAccounts()
-
-    fun onAddAccount() {
-        viewModelScope.launch {
-            val newAccount = Account(0, "XXX", 10.0, Currency.USD)
-            database.insert(newAccount)
-        }
-    }
 
     fun onAccountClicked(id: Long) {
         //TODO: code is temporary

@@ -48,8 +48,17 @@ class AccountEditFragment : Fragment() {
         viewModel.account.value?.currency?.ordinal?.let { binding.currencySpinner.setSelection(it) }
 
         viewModel.leave.observe(viewLifecycleOwner, {
-            if(it) {
-                this.findNavController().popBackStack()
+            if (it) {
+                if (arguments.accountId == null || viewModel.account.value == null) {
+                    this.findNavController().navigate(
+                        AccountEditFragmentDirections.actionAccountEditFragmentToNavAccounts()
+                    )
+                } else {
+                    this.findNavController().navigate(
+                        AccountEditFragmentDirections.actionAccountEditFragmentToAccountFragment(arguments.accountId)
+                    )
+                }
+
                 viewModel.doneNavigating()
             }
         })
@@ -70,11 +79,13 @@ class AccountEditFragment : Fragment() {
                 val currency = binding.currencySpinner.selectedItem as Currency
                 val balance = binding.balanceEdit.text.toString().toDouble()
                 viewModel.onSave(name, currency, balance)
-            }
+            } else
+                Toast.makeText(context, "Fill all fields!", Toast.LENGTH_SHORT).show()
         }
 
         return binding.root
     }
 
     private fun dataIsValid() = !binding.nameEdit.text.isNullOrBlank()
+            && !binding.balanceEdit.text.isNullOrBlank()
 }

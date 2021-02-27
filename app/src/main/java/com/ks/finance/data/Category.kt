@@ -1,7 +1,17 @@
 package com.ks.finance.data
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "categories")
 data class Category(
-    val id: Int,
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0L,
+
+    @ColumnInfo
     val name: String,
-    val isIncome: Boolean
+
+    @ColumnInfo
+    val isIncome: Boolean = true
 )

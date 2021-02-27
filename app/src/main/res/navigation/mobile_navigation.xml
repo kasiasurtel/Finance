@@ -48,7 +48,9 @@
             app:nullable="true" />
         <action
             android:id="@+id/action_accountEditFragment_to_nav_accounts"
-            app:destination="@id/nav_accounts" />
+            app:destination="@id/nav_accounts"
+            app:popUpTo="@id/nav_accounts"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_accountEditFragment_to_accountFragment"
             app:destination="@id/accountFragment"

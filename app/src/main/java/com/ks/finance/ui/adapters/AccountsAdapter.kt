@@ -8,9 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ks.finance.data.Account
 import com.ks.finance.databinding.ListItemAccountBinding
 
-class AccountsAdapter(private val clickListener: AccountListener) : ListAdapter<Account, AccountsAdapter.ViewHolder>(
-    AccountDiffCallback()
-) {
+class AccountsAdapter(private val clickListener: AccountListener) : ListAdapter<Account,
+        AccountsAdapter.ViewHolder>(AccountDiffCallback()) {
 
     inner class ViewHolder(private val binding: ListItemAccountBinding) :
         RecyclerView.ViewHolder(binding.root) {
