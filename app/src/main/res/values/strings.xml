@@ -24,6 +24,7 @@
     <string name="button_edit">Edit</string>
 
     <string name="account_name_label">Account name</string>
+    <string name="category_name_label">Category name</string>
     <string name="account_currency_label">Account currency</string>
     <string name="account_balance_label">Account balance</string>
     <string name="account_delete">Account delete</string>

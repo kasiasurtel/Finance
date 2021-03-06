@@ -22,11 +22,8 @@ class SettingsFragment : Fragment() {
     ): View? {
         settingsViewModel =
                 ViewModelProvider(this).get(SettingsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_categories, container, false)
-        val textView: TextView = root.findViewById(R.id.text_slideshow)
-        settingsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        val root = inflater.inflate(R.layout.fragment_settings, container, false)
+
         return root
     }
 }

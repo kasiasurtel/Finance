@@ -10,7 +10,7 @@ data class Category(
     var id: Long = 0L,
 
     @ColumnInfo
-    val name: String,
+    var name: String,
 
     @ColumnInfo
     val isIncome: Boolean = true

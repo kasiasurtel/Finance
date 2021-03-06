@@ -62,7 +62,11 @@
         android:id="@+id/nav_categories"
         android:name="com.ks.finance.ui.fragments.CategoriesFragment"
         android:label="@string/menu_categories"
-        tools:layout="@layout/fragment_categories" />
+        tools:layout="@layout/fragment_categories" >
+        <action
+            android:id="@+id/action_nav_categories_to_categoryEditFragment"
+            app:destination="@id/categoryEditFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_statistics"
@@ -75,5 +79,17 @@
         android:name="com.ks.finance.ui.fragments.SettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/categoryEditFragment"
+        android:name="com.ks.finance.ui.fragments.CategoryEditFragment"
+        android:label="CategoryEditFragment" >
+        <argument
+            android:name="categoryId"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_categoryEditFragment_to_nav_categories"
+            app:destination="@id/nav_categories" />
+    </fragment>
 
 </navigation>

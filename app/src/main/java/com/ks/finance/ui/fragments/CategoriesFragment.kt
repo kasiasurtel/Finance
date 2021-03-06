@@ -45,9 +45,9 @@ class CategoriesFragment : Fragment() {
         binding.viewModel = viewModel
 
         val adapter = CategoriesAdapter(CategoryListener { categoryId ->
-//            this.findNavController().navigate(
-//                AccountsFragmentDirections.actionNavAccountsToAccountFragment(categoryId.toString())
-//            )
+            this.findNavController().navigate(
+                CategoriesFragmentDirections.actionNavCategoriesToCategoryEditFragment(categoryId.toString())
+            )
         })
 
         binding.recyclerView.adapter = adapter
@@ -56,7 +56,9 @@ class CategoriesFragment : Fragment() {
         })
 
         binding.addCategoryButton.setOnClickListener {
-            viewModel.addCategory()
+            this.findNavController().navigate(
+                CategoriesFragmentDirections.actionNavCategoriesToCategoryEditFragment(null)
+            )
         }
 
         return binding.root
