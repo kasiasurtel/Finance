@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ks.finance.R
 import com.ks.finance.data.FinanceDatabase
 import com.ks.finance.databinding.FragmentBudgetBinding
+import com.ks.finance.ui.adapters.AccountsPagerAdapter
 import com.ks.finance.ui.viewmodels.AccountViewModel
 import com.ks.finance.ui.viewmodels.AccountViewModelFactory
 import com.ks.finance.ui.viewmodels.BudgetViewModel
@@ -52,11 +53,19 @@ class BudgetFragment : Fragment() {
         binding.accountButton.setOnClickListener {
             builder.setPositiveButton("Ok") { _, _ ->
                 viewModel.setSelectedAccount()
+                binding.viewPager.setCurrentItem(viewModel.accountIndex, true)
             }
             builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
             builder.create()
             builder.show()
         }
+
+        val adapter = AccountsPagerAdapter()
+        binding.viewPager.adapter = adapter
+
+        viewModel.accounts.observe(viewLifecycleOwner, {
+            it?.let { adapter.submitList(it) }
+        })
 
         return binding.root
     }

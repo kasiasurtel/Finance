@@ -15,7 +15,8 @@ class BudgetViewModel(
 
     val accounts = database.getAllAccounts()
 
-    private var accountIndex: Int = 0
+    private var _accountIndex: Int = 0
+    var accountIndex = _accountIndex
 
     private var _selectedAccount = MutableLiveData<Account>()
     var selectedAccount: LiveData<Account> = _selectedAccount
