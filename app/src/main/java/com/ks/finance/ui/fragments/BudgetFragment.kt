@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.ks.finance.R
 import com.ks.finance.data.FinanceDatabase
 import com.ks.finance.databinding.FragmentBudgetBinding
-import com.ks.finance.ui.adapters.AccountsPagerAdapter
+import com.ks.finance.ui.adapters.*
 import com.ks.finance.ui.viewmodels.BudgetViewModel
 import com.ks.finance.ui.viewmodels.BudgetViewModelFactory
 
@@ -56,11 +57,40 @@ class BudgetFragment : Fragment() {
             builder.show()
         }
 
+        val transactionsAdapter = TransactionsAdapter(TransactionListener { transactionId ->
+            //
+        })
+
+
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                viewModel.selectAccount(position)
+                viewModel.setSelectedAccount()
+                transactionsAdapter.submitList(viewModel.sortTransactions())
+                super.onPageSelected(position)
+            }
+        })
+
+
+        binding.buttonAddTransaction.setOnClickListener{
+            viewModel.addTransaction()
+        }
+
         val adapter = AccountsPagerAdapter()
         binding.viewPager.adapter = adapter
 
+
         viewModel.accounts.observe(viewLifecycleOwner, {
             it?.let { adapter.submitList(it) }
+        })
+
+        ///
+
+
+
+        binding.recyclerView.adapter = transactionsAdapter
+        viewModel.transactions.observe(viewLifecycleOwner, {
+            it?.let { transactionsAdapter.submitList(viewModel.sortTransactions()) }
         })
 
         return binding.root

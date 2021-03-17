@@ -34,4 +34,10 @@ interface BudgetDao {
 
     @Query("SELECT * FROM categories ORDER BY id ASC")
     fun getAllCategories(): LiveData<List<Category>>
+
+    @Insert
+    suspend fun insert(transaction: Transaction)
+
+    @Query("SELECT * FROM transactions ORDER BY id ASC")
+    fun getAllTransactions(): LiveData<List<Transaction>>
 }
