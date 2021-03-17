@@ -2,7 +2,6 @@ package com.ks.finance.ui.fragments
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.ks.finance.R
-import com.ks.finance.data.Account
 import com.ks.finance.data.Currency
 import com.ks.finance.data.FinanceDatabase
 import com.ks.finance.databinding.FragmentAccountEditBinding
@@ -35,7 +33,7 @@ class AccountEditFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val arguments = AccountEditFragmentArgs.fromBundle(requireArguments())
-        val dataSource = FinanceDatabase.getInstance(application).accountsDao
+        val dataSource = FinanceDatabase.getInstance(application).budgetDao
         val viewModelFactory = AccountEditViewModelFactory(dataSource, arguments.accountId)
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(AccountEditViewModel::class.java)

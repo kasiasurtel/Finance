@@ -1,23 +1,22 @@
 package com.ks.finance.ui.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ks.finance.data.Account
-import com.ks.finance.data.AccountsDao
+import com.ks.finance.data.BudgetDao
 import com.ks.finance.data.Currency
 import kotlinx.coroutines.launch
 
 class AccountEditViewModel(
-    private val database: AccountsDao,
+    private val database: BudgetDao,
     accountId: String?
 ) : ViewModel() {
 
     private var _account = MutableLiveData<Account>().apply {
         viewModelScope.launch {
-            accountId?.let { value = database.get(accountId.toLong()) }
+            accountId?.let { value = database.getAccount(accountId.toLong()) }
         }
     }
     var account: LiveData<Account> = _account

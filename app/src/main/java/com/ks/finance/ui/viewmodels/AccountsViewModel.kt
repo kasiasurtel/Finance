@@ -1,18 +1,13 @@
 package com.ks.finance.ui.viewmodels
 
 import android.app.Application
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ks.finance.data.Account
-import com.ks.finance.data.AccountsDao
-import com.ks.finance.data.Currency
+import com.ks.finance.data.BudgetDao
 import kotlinx.coroutines.launch
 
 class AccountsViewModel(
-    val database: AccountsDao,
+    val database: BudgetDao,
     val application: Application
 ) : ViewModel() {
 
@@ -21,7 +16,7 @@ class AccountsViewModel(
     fun onAccountClicked(id: Long) {
         //TODO: code is temporary
         viewModelScope.launch {
-            val account = database.get(id)
+            val account = database.getAccount(id)
             account?.let {
                 account.name = "Klikniete"
                 database.update(account)
@@ -31,7 +26,7 @@ class AccountsViewModel(
 
     private fun changeAccountExpansion(id: Long) {
         viewModelScope.launch {
-            val account = database.get(id)
+            val account = database.getAccount(id)
             account?.let {
                // account.isExpanded = account.isExpanded != true
                 //database.update(it)
@@ -41,7 +36,7 @@ class AccountsViewModel(
 
     private fun deleteAccount(id: Long) {
         viewModelScope.launch {
-            database.get(id)?.let { database.delete(it) }
+            database.getAccount(id)?.let { database.delete(it) }
         }
     }
 }

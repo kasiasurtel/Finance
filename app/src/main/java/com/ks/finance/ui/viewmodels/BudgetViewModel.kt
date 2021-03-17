@@ -4,13 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.ks.finance.data.Account
-import com.ks.finance.data.AccountsDao
-import kotlinx.coroutines.launch
+import com.ks.finance.data.BudgetDao
 
 class BudgetViewModel(
-    database: AccountsDao
+    database: BudgetDao
 ) : ViewModel() {
 
     val accounts = database.getAllAccounts()

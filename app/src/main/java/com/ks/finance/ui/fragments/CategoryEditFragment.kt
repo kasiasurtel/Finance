@@ -2,24 +2,17 @@ package com.ks.finance.ui.fragments
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.ks.finance.R
-import com.ks.finance.data.Account
-import com.ks.finance.data.Currency
 import com.ks.finance.data.FinanceDatabase
-import com.ks.finance.databinding.FragmentAccountEditBinding
 import com.ks.finance.databinding.FragmentCategoryEditBinding
-import com.ks.finance.ui.viewmodels.AccountEditViewModel
-import com.ks.finance.ui.viewmodels.AccountEditViewModelFactory
 import com.ks.finance.ui.viewmodels.CategoryEditViewModel
 import com.ks.finance.ui.viewmodels.CategoryEditViewModelFactory
 
@@ -38,7 +31,7 @@ class CategoryEditFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val arguments = CategoryEditFragmentArgs.fromBundle(requireArguments())
-        val dataSource = FinanceDatabase.getInstance(application).categoriesDao
+        val dataSource = FinanceDatabase.getInstance(application).budgetDao
         val viewModelFactory = CategoryEditViewModelFactory(dataSource, arguments.categoryId)
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(CategoryEditViewModel::class.java)

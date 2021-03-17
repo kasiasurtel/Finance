@@ -1,12 +1,11 @@
 package com.ks.finance.ui.viewmodels
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.ks.finance.data.AccountsDao
+import com.ks.finance.data.BudgetDao
 
 class AccountViewModelFactory(
-    private val dataSource: AccountsDao,
+    private val dataSource: BudgetDao,
     private val accountId: String?
         ) : ViewModelProvider.Factory {
 

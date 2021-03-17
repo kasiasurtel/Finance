@@ -25,7 +25,7 @@ class AccountFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val arguments = AccountFragmentArgs.fromBundle(requireArguments())
-        val dataSource = FinanceDatabase.getInstance(application).accountsDao
+        val dataSource = FinanceDatabase.getInstance(application).budgetDao
         val viewModelFactory = AccountViewModelFactory(dataSource, arguments.accountId)
         val accountViewModel = ViewModelProvider(
                 this, viewModelFactory).get(AccountViewModel::class.java)

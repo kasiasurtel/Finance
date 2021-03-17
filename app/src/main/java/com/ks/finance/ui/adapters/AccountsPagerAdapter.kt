@@ -1,20 +1,10 @@
 package com.ks.finance.ui.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.PagerAdapter
-import com.ks.finance.R
 import com.ks.finance.data.Account
-import com.ks.finance.data.Category
-import com.ks.finance.databinding.ListItemAccountBinding
-import com.ks.finance.databinding.ListItemCategoryBinding
 import com.ks.finance.databinding.PagerAccountItemBinding
 
 class AccountsPagerAdapter :

@@ -1,6 +1,5 @@
 package com.ks.finance.ui.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,13 +8,13 @@ import com.ks.finance.data.*
 import kotlinx.coroutines.launch
 
 class CategoryEditViewModel(
-    private val database: CategoriesDao,
+    private val database: BudgetDao,
     categoryId: String?
 ) : ViewModel() {
 
     private var _category = MutableLiveData<Category>().apply {
         viewModelScope.launch {
-            categoryId?.let { value = database.get(categoryId.toLong()) }
+            categoryId?.let { value = database.getCategory(categoryId.toLong()) }
         }
     }
     var category: LiveData<Category> = _category
