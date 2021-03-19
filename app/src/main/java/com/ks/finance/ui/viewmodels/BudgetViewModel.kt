@@ -17,8 +17,7 @@ class BudgetViewModel(
 
     val accounts = database.getAllAccounts()
 
-    private var _accountIndex: Int = 0
-    var accountIndex = _accountIndex
+    private var selectedAccountPosition: Int = 0
 
     private var _selectedAccount = MutableLiveData<Account>().apply {
         accounts.value?.get(0)
@@ -26,7 +25,6 @@ class BudgetViewModel(
     var selectedAccount: LiveData<Account> = _selectedAccount
 
     var transactions = database.getAllTransactions()
-    var selectedTransactions = MutableLiveData<List<Transaction>>()
 
     fun getAccountsNames(): Array<String>? {
         Log.d("BudgetViewModel", "number of accounts: " + accounts.value?.size)
@@ -34,14 +32,12 @@ class BudgetViewModel(
     }
 
     fun selectAccount(position: Int) {
-        accountIndex = position
+        selectedAccountPosition = position
+        _selectedAccount.value = accounts.value?.get(position)
+
     }
 
-    fun setSelectedAccount() {
-        _selectedAccount.value = accounts.value?.get(accountIndex)
-    }
-
-    fun getSelectedAccountPosition() = accounts.value!!.indexOf(selectedAccount.value)
+    fun getSelectedAccountPosition() = selectedAccountPosition
 
     fun addTransaction() {
         viewModelScope.launch {
@@ -55,6 +51,20 @@ class BudgetViewModel(
     }
 
     fun sortTransactions() = transactions.value?.filter { it.accountId == _selectedAccount.value?.id }
+
+    fun navigateLeft() {
+        if(selectedAccountPosition > 0) {
+            selectedAccountPosition--
+            selectAccount(selectedAccountPosition)
+        }
+    }
+
+    fun navigateRight() {
+        if(selectedAccountPosition + 1 < accounts.value?.size!!) {
+            selectedAccountPosition++
+            selectAccount(selectedAccountPosition)
+        }
+    }
 
 
 }
